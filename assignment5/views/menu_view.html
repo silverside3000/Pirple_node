@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Accounts - Product Admin Template</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:400,700"
+    />
+    <!-- https://fonts.google.com/specimen/Roboto -->
+    <link rel="stylesheet" href="../assets/css/fontawesome.min.css" />
+    <!-- https://fontawesome.com/ -->
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
+    <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="../assets/css/templatemo-style.css">
+    <!--
+	Product Admin CSS Template
+	https://templatemo.com/tm-524-product-admin
+	-->
+  </head>
+  <dialog id="myCart" class="container tm-bg-primary-dark tm-block tm-block-h-auto" >
+    <div class="row">
+      <div class="col-12 text-center">
+        <h2 class="tm-block-title mb-4">anonymous Pizza selections Cart</h2>
+      </div>
+              <table class="table">
+                  <thead>
+                      <tr>
+                          <th scope="col">Menu Name</th>
+                          <th scope="col">Quantity</th>
+                          <th scope="col">Price</th>
+                          <th scope="col">Sub Total</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                          <th scope="row"><span id = "td_menu_item"></span></th>
+                          <td><span id = "td_menu_item_quantity"></span></td>
+                          <td><span id = "td_price"></span></td>
+                          <th scope="row"><span id = "td_sub_total"></span></th>
+                      </tr>
+                      <tr><th colspan="4"><center> <h2 class="tm-block-title mb-4" id="cart_error" style="color:red"></h2></center></th></tr>
+                  </tbody>
+              </table>
+              <!--<h2 class="tm-block-title" id="cart_selection">Electronic Shopping Cart</h2>-->
+              
+    </div>
+  </dialog>
+
+
+  <body id="reportsPage">
+    <div class="" id="home">
+        <nav class="navbar navbar-expand-xl">
+            <div class="container h-100">
+                <a class="navbar-brand" href='http://localhost:3000'>
+                  <h1 class="tm-site-title mb-0"><i class="fas fa-home"> &nbsp;&nbsp;&nbsp;&nbsp;</i>{BODY.COMPANYNAME}</h1>
+                </a>
+                <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars tm-nav-icon"></i>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto h-100">
+                        <li id='menu_items' class="nav-item ">
+                            <a class="nav-link " href="dashboard">
+                                <i class="fas fa-tachometer-alt"></i>
+                                Menu Items 
+                            </a>
+                        </li> 
+                        <li id='cart_menu' class="nav-item ">
+                            <a class="nav-link " href="cart">
+                                <i class="fas fa-shopping-cart"></i>
+                                My Cart 
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link d-block" href="#">
+                              <b id="logout">Logout</b>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+      <div class="container mt-5">
+        
+          <div class="row tm-content-row">
+              <div class="tm-block-col tm-col-avatar">
+                <div class="tm-bg-primary-dark tm-block tm-block-avatar">
+                  <h2 class="tm-block-title">Menu Item: <span id = "menu_item">{menu.name}</span></h2>
+                  <div class="tm-avatar-container">
+                    <img src="../assets/img/menu_images/{menu.image}.jpg"
+                      alt="Avatar" height="277" width="345" />
+                    <a href="#" class="tm-avatar-delete-link">
+                      <i class="far fa-trash-alt tm-product-delete-icon"></i>
+                    </a>
+                  </div>
+                  <table>
+                      <thead>
+                          <th scope="col"><button onclick="decFunction()" class="btn btn-primary btn-block text-uppercase"> - </button></th>
+                          <th scope="col"> <input  id="menu_item_quantity" name="name" value="0" type="number"class="form-control validate" style="text-align: center"/> </th>
+                          <th scope="col"><button onclick="incFunction()" class="btn btn-primary btn-block text-uppercase"> + </button></th>
+                      </thead>
+                    </table>
+                </div>
+              </div>
+              <div class="tm-block-col tm-col-account-settings">
+                <div class="tm-bg-primary-dark tm-block tm-block-settings">
+                    <h2 class="tm-block-title">Menu Item Price: <span id ="price" value="" >{menu.price}</span></h2>
+                    <h3 class="tm-block-title">Sub Total: <span id="sub_total">0</span></h3>
+                    <div class="media tm-notification-item">
+                      <div class="media-body">
+                          <p class="mb-2">
+                              Service Remark
+                              <br />
+                              {menu.description}
+                          </p>
+                      </div>
+                    </div>
+                    <form onsubmit="return false;" method="post" action="#" class="tm-login-form">
+                      <div class="form-group col-lg-6">
+                        <label class="tm-hide-sm">&nbsp;</label>
+                        <button type="submit" id = "add2Cart"  onclick="addToCart()" class="btn btn-primary btn-block text-uppercase">
+                          + Add To Cart <i class="fas fa-shopping-cart"></i>
+                        </button>
+                      </div>
+                      <div class="col-12">
+                        <button type="submit" id = "checkout_button" onclick="navigate_checkout()" class="btn btn-primary btn-block text-uppercase">
+                          Check Out
+                        </button>
+                      </div>
+                    </form>
+                </div>
+              </div>
+            </div>
+
+      </div>
+      <footer class="tm-footer row tm-mt-small">
+        <div class="col-12 font-weight-light">
+            <p class="text-center text-white mb-0 px-4 small">
+              Copyright &copy; <b>2021</b> All rights reserved. 
+            </p>
+        </div>
+      </footer>
+    </div>
+
+    <script src="../assets/js/jquery-3.3.1.min.js"></script>
+    <!-- https://jquery.com/download/ -->
+    <script src="../assets/js/bootstrap.min.js"></script>
+    <!-- https://getbootstrap.com/ -->
+    <script>
+        function decFunction() {
+          if(document.getElementById("menu_item_quantity").value > 1)
+          document.getElementById("menu_item_quantity").stepDown(1);
+          document.getElementById("sub_total").innerHTML = document.getElementById("price").innerHTML * document.getElementById("menu_item_quantity").value;
+        }
+        function incFunction() {
+          document.getElementById("menu_item_quantity").stepUp(1);
+          document.getElementById("sub_total").innerHTML = document.getElementById("price").innerHTML * document.getElementById("menu_item_quantity").value;
+          //alert('yeah => ' + document.getElementById("price").innerHTML);
+        }
+    </script>
+     <script src="../assets/app.js"></script>
+  </body>
+</html>
